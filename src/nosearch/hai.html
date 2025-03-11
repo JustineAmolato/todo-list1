@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css" media="screen">
+    <link rel="stylesheet" href="../nosearch/styles.css">
+
+    <title>Webpage Structure</title>
+
+    <script>
+        const jsonURL = "courses.json";
+        let coursesData = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+    function displayCourses(courses) {
+        const courseList = document.getElementById("course-list");
+        courseList.innerHTML = ''; 
+        courses.forEach(course => {
+            let listItem = document.createElement("div");
+            listItem.classList.add("course-card");
+            listItem.innerHTML = `<p><strong>${course.code}</strong></p>
+                                  <p>${course.description}</p>
+                                  <p>Year Level: ${course.year_level} | Semester: ${course.sem}</p>
+                                  <p>Credits: ${course.credit}</p>`;
+            courseList.appendChild(listItem);
+        });
+    }
+
+    fetch(jsonURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.courses && Array.isArray(data.courses)) {
+                coursesData = data.courses; 
+                displayCourses(coursesData); 
+            } else {
+                console.error("Expected 'courses' array but got:", data);
+            }
+        })
+        .catch(error => console.error("Error fetching JSON:", error));
+});
+
+
+        function displayCourses(courses) {
+            const courseList = document.getElementById("course-list");
+            courseList.innerHTML = ''; 
+            courses.forEach(course => {
+                let listItem = document.createElement("div");
+                listItem.classList.add("course-card");
+                listItem.innerHTML = `<p><strong>${course.code}</strong></p>
+                                      <p>${course.description}</p>
+                                      <p>Year Level: ${course.year_level} | Semester: ${course.sem}</p>
+                                      <p>Credits: ${course.credit}</p>`;
+                courseList.appendChild(listItem);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <p>I am header with an unordered list of hyperlinks</p>
+        <ul class="nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <img src="bet.jpg" class="img-right">
+    <p class="card-header">Smokers don't grow old, They die young.</p>
+
+    <div class="page-content">
+        <section class="card" id="about">
+            <p class="card-header">About</p>
+            <p class="card-body">HI! i am justine Amolato and i am IT student.</p>
+        </section>
+
+        <section class="card" id="education">
+            <p class="card-header">Education</p>
+            <p class="card-body">I am a student of USTP, With a course of IT.</p>
+        </section>
+
+        <section class="card" id="skills">
+            <p class="card-header">Skills</p>
+            <p class="card-body">Tell us about your IT Skills</p>
+        </section>
+
+        <section class="card" id="portfolio">
+            <p class="card-header">Portfolio</p>
+            <p class="card-body">Can you Share ur previous projects.</p>
+        </section>
+
+        <section class="card" id="courses-taken">
+            <h2>Courses Taken</h2>
+            <div id="course-list" class="course-list"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>I am a footer, the last section of this page</p>
+    </footer>
+</body>
+</html>
